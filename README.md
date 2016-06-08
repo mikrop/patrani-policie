@@ -1,2 +1,8 @@
 # scraper-patrani-policie-cz
-Scraper webu policie české republiky
+Scraper webové aplikace pátrání policie české republiky. Umožňuje strojové spracování pátrání
+
+- po vozidlech a registračních značkách
+  - dítě v ohrožení
+  - pátrání v médiích
+  - mimořádné opatření 
+- po osobách
