@@ -1,11 +1,12 @@
 package cz.policie.patrani.vozidla;
 
+import cz.policie.patrani.PatraniSoup;
 import cz.policie.patrani.model.OdcizeneVozidlo;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.junit.Assert;
 
 import java.io.IOException;
 import java.util.*;
@@ -13,7 +14,10 @@ import java.util.*;
 /**
  * Parsuje aplikaci policii české republiky http://aplikace.policie.cz/patrani-vozidla/default.aspx
  */
-public class Test {
+public class VozidlaScraper {
+
+    // Adresa webového formuláře
+    private static final String URL = "http://aplikace.policie.cz/patrani-vozidla/default.aspx";
 
     /**
      * Z předané URL parsuje detail vozidla do struktury {@link OdcizeneVozidlo}.
@@ -43,13 +47,16 @@ public class Test {
      * @return seznam nalezených vozidel
      * @throws IOException chyba parsování
      */
-    public static List<OdcizeneVozidlo> parse(String query) throws IOException {
+    static List<OdcizeneVozidlo> parse(String query) throws IOException {
 
-        String url = "http://aplikace.policie.cz/patrani-vozidla/default.aspx?__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=%2FwEPDwULLTEzNzIzMjY0MDMPZBYCZg9kFgICBw9kFgICAQ9kFgoCBA8PZBYCHgpvbmtleXByZXNzBTZyZXR1cm4gb25LZXlwcmVzcyhldmVudCwnY3RsMDBfQXBwbGljYXRpb25fY21kSGxlZGVqJylkAgYPD2QWAh8ABTZyZXR1cm4gb25LZXlwcmVzcyhldmVudCwnY3RsMDBfQXBwbGljYXRpb25fY21kSGxlZGVqJylkAhQPDxYEHgRUZXh0BRxDZWxrb3bDvSBwb8SNZXQgesOhem5hbcWvOiAxHgdWaXNpYmxlZ2RkAhUPDxYCHwJoZGQCGQ8PFgIfAQU%2FRGF0YWLDoXplIGJ5bGEgbmFwb3NsZWR5IGFrdHVhbGl6b3bDoW5hIDxiPjYuIHByb3NpbmNlIDIwMTI8L2I%2BZGRkE2qlXWNJcxoc8%2FLZOQEi5oKrGzs%3D&__EVENTVALIDATION=%2FwEWBQL80qOCBwLQsb3%2BBgK9peeFDwLv%2BPyjBAL4oIjjDVvi8FJppOBh8gjuF1u%2Ft7viEDtA&ctl00%24Application%24txtSPZ="
-                + query + "&ctl00%24Application%24txtVIN=" + query
-                + "&ctl00%24Application%24cmdHledej=Vyhledat&ctl00%24Application%24CurrentPage=1";
+        Document doc = PatraniSoup
+                .connect(URL)
+                .data("ctl00$Application$txtSPZ", query)
+                .data("ctl00$Application$txtVIN", query)
+                .data("ctl00$Application$cmdHledej", "Vyhledat")
+                .method(Connection.Method.POST)
+                .get();
 
-        Document doc = Jsoup.connect(url).get();
         Elements table = doc.select("table[id=celacr]");
         Iterator<Element> trs = table.select("tr[class=registracni-znacky]").iterator();
         List<OdcizeneVozidlo> result = new ArrayList<>();
@@ -61,14 +68,6 @@ public class Test {
             result.add(vozidlo);
         }
         return result;
-
-    }
-
-    public static void main(String[] args) throws IOException {
-
-        String spz = "8B67354";
-        List<OdcizeneVozidlo> vozidla = Test.parse(spz);
-        Assert.assertEquals(vozidla.iterator().next().getRokVyroby(), Integer.valueOf(2014));
 
     }
 
