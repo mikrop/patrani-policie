@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Inicializovaný {@link Jsoup} pro hledání na stránkách http://aplikace.policie.cz
  */
-public class PatraniSoup {
+class PatraniSoup {
 
     /**
      * Inicializuje {@link Jsoup} pro hledání na stránkách http://aplikace.policie.cz

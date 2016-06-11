@@ -1,6 +1,5 @@
-package cz.policie.patrani.vozidla;
+package cz.policie.patrani;
 
-import cz.policie.patrani.PatraniSoup;
 import cz.policie.patrani.model.OdcizeneVozidlo;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

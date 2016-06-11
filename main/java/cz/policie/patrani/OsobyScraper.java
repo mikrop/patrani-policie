@@ -1,6 +1,5 @@
-package cz.policie.patrani.osoby;
+package cz.policie.patrani;
 
-import cz.policie.patrani.PatraniSoup;
 import cz.policie.patrani.model.HledanaOsoba;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
