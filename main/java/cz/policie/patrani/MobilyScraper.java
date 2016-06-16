@@ -1,13 +1,11 @@
 package cz.policie.patrani;
 
-import cz.policie.patrani.model.NeplatnyDoklad;
 import cz.policie.patrani.model.OdcizenyTelefon;
 import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.regex.Pattern;
 
 /**
  * Parsuje aplikaci policii české republiky http://aplikace.policie.cz/patrani-mobily/default.aspx

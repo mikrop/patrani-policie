@@ -28,8 +28,8 @@ class PatraniSoup {
 
         Document doc = response.parse();
         String viewstate = doc.select("input[name=__VIEWSTATE]").attr("value");
-        String eventvalidation = doc.select("input[name=__EVENTVALIDATION]").attr("value");
         String viewstategenerator = doc.select("input[name=__VIEWSTATEGENERATOR]").attr("value");
+        String eventvalidation = doc.select("input[name=__EVENTVALIDATION]").attr("value");
 
         return Jsoup
                 .connect(url)
@@ -39,8 +39,7 @@ class PatraniSoup {
                 .data("__VIEWSTATE", viewstate)
                 .data("__VIEWSTATEGENERATOR", viewstategenerator)
                 .data("__EVENTVALIDATION", eventvalidation)
-                .cookies(response.cookies())
-                .method(Connection.Method.POST);
+                ;
     }
 
 }

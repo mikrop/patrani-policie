@@ -1,7 +1,11 @@
 package cz.policie.patrani.model;
 
+import cz.policie.patrani.ScraperUtils;
 import org.junit.Assert;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 public class OdcizeneVozidlo {
@@ -15,7 +19,7 @@ public class OdcizeneVozidlo {
     private String vin;
     private String motor;
     private Integer rokVyroby;
-    private String nahlaseno;
+    private Date nahlaseno;
 
     private OdcizeneVozidlo() {
     }
@@ -45,7 +49,7 @@ public class OdcizeneVozidlo {
             } else if (entry.getKey().equals("ctl00_Application_lblRokVyroby")) {
                 vozidlo.rokVyroby = value != null ? Integer.valueOf(value) : null;
             } else if (entry.getKey().equals("ctl00_Application_lblNahlaseno")) {
-                vozidlo.nahlaseno = value;
+                vozidlo.nahlaseno = ScraperUtils.parse(value);
             }
         }
         return vozidlo;
@@ -87,7 +91,7 @@ public class OdcizeneVozidlo {
         return rokVyroby;
     }
 
-    public String getNahlaseno() {
+    public Date getNahlaseno() {
         return nahlaseno;
     }
 

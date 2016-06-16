@@ -1,17 +1,13 @@
 package cz.policie.patrani.model;
 
+import cz.policie.patrani.ScraperUtils;
 import org.junit.Assert;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
 public class NeplatnyDoklad {
-
-    // Formát data od neplatnosti dokladu
-    private static final DateFormat DF = new SimpleDateFormat("dd.MM.yyyy");
 
     private String cislo;
     private TypDoklad typDoklad;
@@ -31,7 +27,7 @@ public class NeplatnyDoklad {
             } else if (entry.getKey().equals("serie")) {
                 doklad.serie = value;
             } else if (entry.getKey().equals("neplatnyOd")) {
-                doklad.neplatnyOd = DF.parse(value);
+                doklad.neplatnyOd = ScraperUtils.parse(value);
             }
         }
         return doklad;
