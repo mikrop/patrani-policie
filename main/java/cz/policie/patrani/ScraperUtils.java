@@ -1,7 +1,6 @@
 package cz.policie.patrani;
 
 import cz.policie.patrani.model.Pohlavi;
-import org.jsoup.select.Elements;
 import org.junit.Assert;
 
 import java.text.DateFormat;
@@ -16,21 +15,8 @@ import java.util.regex.Pattern;
 public abstract class ScraperUtils {
 
     // Vzor o nedohledání
-    private static final Pattern NOT_FOUND_PATTERN = Pattern.compile(" nebyl nalezen ");
     private static final Pattern RANGE_PATTERN = Pattern.compile("(\\d+) až (\\d+)");
     private static final String[] DF_PATTERNS = { "dd.MM.yyyy", "dd. MMMM yyyy" };
-
-    /**
-     * Vrací {@code true}, pokud je v předaném elementu řetězec {@link #NOT_FOUND_PATTERN}, jinak {@code false}
-     *
-     * @param elements testovaný element, jehož text budeme prohledávat
-     * @return příznak, zda byl text nalezen
-     */
-    static boolean findNotFound(Elements elements) {
-        Assert.assertNotNull(elements);
-        String text = elements.text();
-        return NOT_FOUND_PATTERN.matcher(text).find();
-    }
 
     /**
      * Parsuje předaný datum do objektu {@link Date}.
@@ -61,6 +47,18 @@ public abstract class ScraperUtils {
     public static boolean toBoolean(String anotherString) {
         Assert.assertNotNull(anotherString);
         return anotherString.contains("ANO");
+    }
+
+    /**
+     * Transformuje výčtovou hodnotu na základě předaného řetězce, který pokud obsahuje "muž",
+     * vrací {@link Pohlavi#MUZ}, jinak {@link Pohlavi#ZENA}.
+     *
+     * @param lblPohlavi parsovaný řetězec
+     * @return výčtová hodnota
+     */
+    public static Pohlavi toPohlavi(String lblPohlavi) {
+        Assert.assertNotNull(lblPohlavi);
+        return Pattern.compile("muž").matcher(lblPohlavi).find() ? Pohlavi.MUZ : Pohlavi.ZENA;
     }
 
 }

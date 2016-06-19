@@ -1,14 +1,13 @@
 package cz.policie.patrani;
 
 import cz.policie.patrani.model.OdcizenyTelefon;
-import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
 /**
- * Parsuje aplikaci policii české republiky http://aplikace.policie.cz/patrani-mobily/default.aspx
+ * Parsuje webové stránky policie české republiky o <a href="http://aplikace.policie.cz/patrani-mobily/default.aspx">odcizených mobilních zařízeních</a>
  */
 public class MobilyScraper {
 
@@ -28,14 +27,14 @@ public class MobilyScraper {
                 .connect(URL)
                 .data("ctl00$Application$tbImei", imei)
                 .data("ctl00$Application$Button1", "Vyhledat")
-                .method(Connection.Method.POST)
-                .get();
+                .post();
 
-        Elements label1 = doc.select("span[id=ctl00_Application_Label1]");
-        if (ScraperUtils.findNotFound(label1)) {
-            throw new PatraniNotFoundException(label1.text());
+        Elements label1 = doc.select("span[id=ctl00_Application_Label1]:contains(nebyl nalezen)");
+        if (!label1.isEmpty()) {
+            throw new PatraniNotFoundException(label1);
         }
         return new OdcizenyTelefon();
+
     }
 
 }

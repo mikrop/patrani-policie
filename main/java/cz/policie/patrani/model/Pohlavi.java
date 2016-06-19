@@ -42,14 +42,4 @@ public enum Pohlavi {
         throw new IllegalStateException("Nepodporovaný typ pohlaví \"" +caption+ "\"");
     }
 
-    /**
-     * TODO: 17.6.2016 javadoc
-     *
-     * @param lblPohlavi
-     * @return
-     */
-    public static Pohlavi byLblPohlavi(String lblPohlavi) {
-        return Pattern.compile("muž").matcher(lblPohlavi).find() ? MUZ : ZENA;
-    }
-
 }

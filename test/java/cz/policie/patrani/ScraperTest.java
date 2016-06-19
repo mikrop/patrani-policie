@@ -18,7 +18,7 @@ public class ScraperTest {
     private static final String TESTOVACI_SPZ = "8B67354";
     private static final String TESTOVACI_JMENO_PRIJMENI = "LAKATOS+Herman";
     private static final String TESTOVACI_IMEI = "12345678901234";
-    private static final String TESTOVACI_CISLO_DOKLAD = "37305581";
+    private static final String TESTOVACI_DOKLAD_CISLO = "108520090";
 
     @Test
     public void testVozidlaScraper() throws Exception {
@@ -28,7 +28,7 @@ public class ScraperTest {
 
     @Test
     public void testOsobyScraper() throws Exception {
-        HledanaOsoba osoba = new HledanaOsoba();
+        Osoba osoba = new Osoba();
         osoba.setJmenoPrijmeni(TESTOVACI_JMENO_PRIJMENI);
 
         List<HledanaOsoba> osoby = OsobyScraper.parse(osoba);
@@ -42,8 +42,8 @@ public class ScraperTest {
 
     @Test
     public void testDokladyScraper() throws Exception {
-        List<NeplatnyDoklad> doklady = DokladyScraper.parse(TESTOVACI_CISLO_DOKLAD, TypDoklad.FIALOVY_PAS);
-        Assert.assertEquals(doklady.iterator().next().getCislo(), TESTOVACI_CISLO_DOKLAD);
+        List<NeplatnyDoklad> doklady = DokladyScraper.parse(TESTOVACI_DOKLAD_CISLO, TypDoklad.OBCANSKY_PRUKAZ);
+        Assert.assertEquals(doklady.iterator().next().getCislo(), TESTOVACI_DOKLAD_CISLO);
     }
 
 }

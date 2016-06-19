@@ -2,21 +2,21 @@ package cz.policie.patrani.model;
 
 public enum TypDoklad {
 
-    OBCANSKY_PRUKAZ(1, "občanský průkaz"),
-    FIALOVY_PAS(2, "cestovní pas vydaný centrálně – fialový"),
-    ZELENY_PAS(3, "cestovní pas vydávaný regionálně - zelený"),
-    ZBROJNI_PRUKAZ(4, "zbrojní průkaz / zbrojní licence")
+    OBCANSKY_PRUKAZ("1", "občanský průkaz"),
+    FIALOVY_PAS("2", "cestovní pas vydaný centrálně – fialový"),
+    ZELENY_PAS("3", "cestovní pas vydávaný regionálně - zelený"),
+    ZBROJNI_PRUKAZ("4", "zbrojní průkaz / zbrojní licence")
     ;
 
-    private int value;
+    private String value;
     private String caption;
 
-    private TypDoklad(int value, String caprion) {
+    private TypDoklad(String value, String caprion) {
         this.value = value;
         this.caption = caprion;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 

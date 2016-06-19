@@ -2,7 +2,6 @@ package cz.policie.patrani;
 
 import cz.policie.patrani.model.NeplatnyDoklad;
 import cz.policie.patrani.model.TypDoklad;
-import org.jsoup.Connection;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -12,7 +11,7 @@ import java.text.ParseException;
 import java.util.*;
 
 /**
- * Parsuje aplikaci policii české republiky http://aplikace.mvcr.cz/neplatne-doklady/default.aspx
+ * Parsuje webové stránky policie české republiky s <a href="http://aplikace.mvcr.cz/neplatne-doklady/default.aspx">neplatnými doklady</a>
  */
 public class DokladyScraper {
 
@@ -51,14 +50,13 @@ public class DokladyScraper {
         Document doc = PatraniSoup
                 .connect(URL)
                 .data("ctl00$Application$txtCisloDokladu", cislo)
-                .data("ctl00$Application$ddlTypDokladu", Objects.toString(typDokladu.getValue()))
+                .data("ctl00$Application$ddlTypDokladu", typDokladu.getValue())
                 .data("ctl00$Application$cmdZobraz", "Vyhledat")
-                .method(Connection.Method.POST)
-                .get();
+                .post();
 
-        Elements lblEvidence = doc.select("span[id=ctl00_Application_lblEvidence]");
-        if (ScraperUtils.findNotFound(lblEvidence)) {
-            throw new PatraniNotFoundException(lblEvidence.text());
+        Elements lblEvidence = doc.select("span[id=ctl00_Application_lblEvidence]:contains(nebyl nalezen)");
+        if (!lblEvidence.isEmpty()) {
+            throw new PatraniNotFoundException(lblEvidence);
         }
 
         Elements table = doc.select("table[id=ctl00_Application_DataGrid1]");

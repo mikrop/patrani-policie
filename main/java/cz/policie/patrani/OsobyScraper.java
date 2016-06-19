@@ -1,6 +1,7 @@
 package cz.policie.patrani;
 
-import cz.policie.patrani.model.*;
+import cz.policie.patrani.model.HledanaOsoba;
+import cz.policie.patrani.model.Osoba;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Parsuje aplikaci policii české republiky http://aplikace.policie.cz/patrani-osoby/Vyhledavani.aspx
+ * Parsuje webové stránky policie české republiky <a href="http://aplikace.policie.cz/patrani-osoby/Vyhledavani.aspx">pátrání po osobách</a>
  */
 public class OsobyScraper {
 
@@ -21,7 +22,7 @@ public class OsobyScraper {
     private static Map<String, String> COOKIES; // TODO: 17.6.2016 Pouze pro účely testování
     static {
         COOKIES = new HashMap<>();
-        COOKIES.put("ASP.NET_SessionId", "x4qaa3ejfxvjuv55sgtsnr45");
+        COOKIES.put("ASP.NET_SessionId", "nazguh45y4dqyvahavt34ufe");
     }
 
     /**
@@ -49,11 +50,11 @@ public class OsobyScraper {
     /**
      * Seznam hledaných osob odpovídajících předanému formuláři.
      *
-     * @param osoba hledaná osoba
-     * @return seznam hledaných osob
+     * @param osoba filtry hledané osoby
+     * @return seznam hledaných osob odpovídajících předanému filtru
      * @throws IOException chyba parsování
      */
-    static List<HledanaOsoba> parse(HledanaOsoba osoba) throws IOException {
+    static List<HledanaOsoba> parse(Osoba osoba) throws IOException {
 
         Connection.Response response = Jsoup.connect(VYHLEDAVANI_URL)
                 .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0")
@@ -94,19 +95,23 @@ public class OsobyScraper {
 
         Document galery = Jsoup.connect(GALLERY_URL)
                 .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0")
-                .method(Connection.Method.GET)
 //                .cookies(vyhledavani.cookies()) // TODO: 17.6.2016 Odkomentovat
                 .cookies(COOKIES)
                 .get();
+
+        Elements label1 = galery.select("div[id=gallery]:contains(Nenalezen)");
+        if (!label1.isEmpty()) {
+            throw new PatraniNotFoundException(label1);
+        }
 
         Iterator<Element> boxs = galery.select("div[class=personBox]").iterator();
         List<HledanaOsoba> result = new ArrayList<>();
         while (boxs.hasNext()) {
             Element next = boxs.next();
             Element link = next.select("a").first();
-            osoba = detail(link.attr("abs:href"));
+            HledanaOsoba hledanaOsoba = detail(link.attr("abs:href"));
 
-            result.add(osoba);
+            result.add(hledanaOsoba);
         }
         return result;
 

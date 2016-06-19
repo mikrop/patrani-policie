@@ -1,7 +1,6 @@
 package cz.policie.patrani;
 
 import cz.policie.patrani.model.OdcizeneVozidlo;
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,7 +10,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Parsuje aplikaci policii české republiky http://aplikace.policie.cz/patrani-vozidla/default.aspx
+ * Parsuje webové stránky policie české republiky <a href="http://aplikace.policie.cz/patrani-vozidla/default.aspx">pátrání po odcizených vozidlech</a>
  */
 public class VozidlaScraper {
 
@@ -53,8 +52,12 @@ public class VozidlaScraper {
                 .data("ctl00$Application$txtSPZ", query)
                 .data("ctl00$Application$txtVIN", query)
                 .data("ctl00$Application$cmdHledej", "Vyhledat")
-                .method(Connection.Method.POST)
-                .get();
+                .post();
+
+        Elements label1 = doc.select("span[id=ctl00_Application_lblOutput]:contains(nebyl nalezen)");
+        if (!label1.isEmpty()) {
+            throw new PatraniNotFoundException(label1);
+        }
 
         Elements table = doc.select("table[id=celacr]");
         Iterator<Element> trs = table.select("tr[class=registracni-znacky]").iterator();
