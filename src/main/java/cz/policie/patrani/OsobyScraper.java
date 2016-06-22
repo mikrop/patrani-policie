@@ -17,6 +17,7 @@ import java.util.*;
 public class OsobyScraper {
 
     private static final String VYHLEDAVANI_URL = "http://aplikace.policie.cz/patrani-osoby/Vyhledavani.aspx";
+    private static final int DEFAULT_TIMEOUT_MILLIS = 60_000; // 60s
 
     /**
      * Z předané URL parsuje detail osoby do struktury {@link HledanaOsoba}.
@@ -50,6 +51,7 @@ public class OsobyScraper {
     static List<HledanaOsoba> parse(Osoba osoba) throws IOException {
 
         Connection.Response response = Jsoup.connect(VYHLEDAVANI_URL)
+                .timeout(DEFAULT_TIMEOUT_MILLIS)
                 .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0")
                 .method(Connection.Method.GET)
                 .execute();
