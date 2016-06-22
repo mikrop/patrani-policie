@@ -17,13 +17,6 @@ import java.util.*;
 public class OsobyScraper {
 
     private static final String VYHLEDAVANI_URL = "http://aplikace.policie.cz/patrani-osoby/Vyhledavani.aspx";
-    private static final String GALLERY_URL = "http://aplikace.policie.cz/patrani-osoby/Gallery.aspx";
-
-    private static Map<String, String> COOKIES; // TODO: 17.6.2016 Pouze pro účely testování
-    static {
-        COOKIES = new HashMap<>();
-        COOKIES.put("ASP.NET_SessionId", "nazguh45y4dqyvahavt34ufe");
-    }
 
     /**
      * Z předané URL parsuje detail osoby do struktury {@link HledanaOsoba}.
@@ -86,18 +79,10 @@ public class OsobyScraper {
                 .data("ctl00$ctl00$Application$BasePlaceHolder$ddlBarvaOci", osoba.getBarvaOci().getValue())
                 .data("ctl00$ctl00$Application$BasePlaceHolder$ddlBarvaVlasu", osoba.getBarvaVlasu().getValue())
                 .data("ctl00$ctl00$Application$BasePlaceHolder$btnVyhledat", "Vyhledat")
-                .followRedirects(false) // Hooodně důležitej parametr
+                .followRedirects(true) // Hooodně důležitej parametr
                 .execute();
 
-        if (vyhledavani.statusCode() != 302) {
-            throw new IllegalStateException("Nepodařilo se odeslat formulář hledané osoby.");
-        }
-
-        Document galery = Jsoup.connect(GALLERY_URL)
-                .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0")
-//                .cookies(vyhledavani.cookies()) // TODO: 17.6.2016 Odkomentovat
-                .cookies(COOKIES)
-                .get();
+        final Document galery = vyhledavani.parse();
 
         Elements label1 = galery.select("div[id=gallery]:contains(Nenalezen)");
         if (!label1.isEmpty()) {
