@@ -4,6 +4,7 @@ import cz.policie.patrani.model.*;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
