@@ -27,6 +27,21 @@ public abstract class ScraperUtils {
     public static Date parse(String value) {
         Assert.assertNotNull(value);
 
+        // parsovani mesice je zavisle na locale a nastaveni operacniho systemu
+        // proto rucne nahradime ceske nazvy mesicu za cislovky
+        value = value.replace("ledna", "1.")
+            .replace("února", "2.")
+            .replace("března", "3.")
+            .replace("dubna", "4.")
+            .replace("května", "5.")
+            .replace("června", "6.")
+            .replace("července", "7.")
+            .replace("srpna", "8.")
+            .replace("září", "9.")
+            .replace("října", "10.")
+            .replace("listopadu", "11.")
+            .replace("prosince", "12.");
+
         for (String pattern : DF_PATTERNS) {
             try {
                 DateFormat df = new SimpleDateFormat(pattern);

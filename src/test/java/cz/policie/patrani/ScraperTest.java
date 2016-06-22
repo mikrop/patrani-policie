@@ -4,6 +4,7 @@ import cz.policie.patrani.model.*;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class ScraperTest {
 
     // Vstupní parametry testovací
     private static final String TESTOVACI_SPZ = "8B67354";
-    private static final String TESTOVACI_JMENO_PRIJMENI = "LAKATOS+Herman";
+    private static final String TESTOVACI_JMENO_PRIJMENI = "LAKATOS Herman";
     private static final String TESTOVACI_IMEI = "12345678901234";
     private static final String TESTOVACI_DOKLAD_CISLO = "108520090";
 
