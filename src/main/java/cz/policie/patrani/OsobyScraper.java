@@ -16,8 +16,8 @@ import java.util.*;
  */
 public class OsobyScraper {
 
-    private static final String VYHLEDAVANI_URL = "http://aplikace.policie.cz/patrani-osoby/Vyhledavani.aspx";
-    private static final int DEFAULT_TIMEOUT_MILLIS = 60_000; // 60s
+    // Adresa webového formuláře
+    private static final String URL = "http://aplikace.policie.cz/patrani-osoby/Vyhledavani.aspx";
 
     /**
      * Z předané URL parsuje detail osoby do struktury {@link HledanaOsoba}.
@@ -50,25 +50,9 @@ public class OsobyScraper {
      */
     static List<HledanaOsoba> parse(Osoba osoba) throws IOException {
 
-        Connection.Response response = Jsoup.connect(VYHLEDAVANI_URL)
-                .timeout(DEFAULT_TIMEOUT_MILLIS)
-                .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0")
-                .method(Connection.Method.GET)
-                .execute();
-
-        Document doc = response.parse();
-        String viewstate = doc.select("input[name=__VIEWSTATE]").attr("value");
-        String viewstategenerator = doc.select("input[name=__VIEWSTATEGENERATOR]").attr("value");
-        String eventvalidation = doc.select("input[name=__EVENTVALIDATION]").attr("value");
-
-        Connection.Response vyhledavani = Jsoup.connect(VYHLEDAVANI_URL)
-                .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0")
+        Document galery = PatraniSoup
+                .connect(URL)
                 .method(Connection.Method.POST)
-                .data("__EVENTTARGET", "")
-                .data("__EVENTARGUMENT", "")
-                .data("__VIEWSTATE", viewstate)
-                .data("__VIEWSTATEGENERATOR", viewstategenerator)
-                .data("__EVENTVALIDATION", eventvalidation)
                 .data("ctl00$ctl00$Application$BasePlaceHolder$ddlPohlavi", osoba.getPohlavi().getValue())
                 .data("ctl00$ctl00$Application$BasePlaceHolder$ddlHledanyPohresovany", osoba.getHledanyPohresovany().getValue())
                 .data("ctl00$ctl00$Application$BasePlaceHolder$txtJmenoPrijmeni", osoba.getJmenoPrijmeni())
@@ -82,9 +66,7 @@ public class OsobyScraper {
                 .data("ctl00$ctl00$Application$BasePlaceHolder$ddlBarvaVlasu", osoba.getBarvaVlasu().getValue())
                 .data("ctl00$ctl00$Application$BasePlaceHolder$btnVyhledat", "Vyhledat")
                 .followRedirects(true) // Hooodně důležitej parametr
-                .execute();
-
-        final Document galery = vyhledavani.parse();
+                .post();
 
         Elements label1 = galery.select("div[id=gallery]:contains(Nenalezen)");
         if (!label1.isEmpty()) {

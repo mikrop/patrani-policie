@@ -11,6 +11,9 @@ import java.io.IOException;
  */
 class PatraniSoup {
 
+    // Timeout po který budeme četat na odpověd
+    private static final int DEFAULT_TIMEOUT_MILLIS = 60_000; // 60s
+
     /**
      * Inicializuje {@link Jsoup} pro hledání na stránkách http://aplikace.policie.cz
      *
@@ -18,10 +21,11 @@ class PatraniSoup {
      * @return inicializovaný {@link Jsoup}
      * @throws IOException chyba parsování
      */
-    public static Connection connect(String url) throws IOException {
+    static Connection connect(String url) throws IOException {
 
         Connection.Response response = Jsoup
                 .connect(url)
+                .timeout(DEFAULT_TIMEOUT_MILLIS)
                 .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0")
                 .method(Connection.Method.GET)
                 .execute();
@@ -33,6 +37,7 @@ class PatraniSoup {
 
         return Jsoup
                 .connect(url)
+                .timeout(DEFAULT_TIMEOUT_MILLIS)
                 .userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64; rv:46.0) Gecko/20100101 Firefox/46.0")
                 .data("__EVENTTARGET", "")
                 .data("__EVENTARGUMENT", "")

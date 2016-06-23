@@ -1,7 +1,5 @@
 package cz.policie.patrani.model;
 
-import java.util.regex.Pattern;
-
 public enum Pohlavi {
 
     MUZ("MUŽ", "muž"),

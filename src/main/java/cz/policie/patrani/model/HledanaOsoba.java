@@ -3,13 +3,8 @@ package cz.policie.patrani.model;
 import cz.policie.patrani.ScraperUtils;
 import org.junit.Assert;
 
-import java.awt.font.NumericShaper;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.temporal.ValueRange;
 import java.util.Date;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 /**
  * Údaje o pohřešované a hledané osoby, po které Policie České republiky vyhlásila pátrání.
