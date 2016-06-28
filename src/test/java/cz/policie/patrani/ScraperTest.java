@@ -39,10 +39,10 @@ public class ScraperTest {
 //    public void testMobilyScraper() throws Exception {
 //        OdcizenyTelefon telefon = MobilyScraper.parse(TESTOVACI_IMEI);
 //    }
-
-    @Test
-    public void testDokladyScraper() throws Exception {
-        List<NeplatnyDoklad> doklady = DokladyScraper.parse(TESTOVACI_DOKLAD_CISLO, TypDoklad.OBCANSKY_PRUKAZ);
-    }
+//
+//    @Test
+//    public void testDokladyScraper() throws Exception {
+//        List<NeplatnyDoklad> doklady = DokladyScraper.parse(TESTOVACI_DOKLAD_CISLO, TypDoklad.OBCANSKY_PRUKAZ);
+//    }
 
 }
