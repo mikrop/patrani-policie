@@ -10,9 +10,14 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Parsuje webové stránky policie české republiky <a href="http://aplikace.policie.cz/patrani-vozidla/default.aspx">pátrání po odcizených vozidlech</a>
+ * Parsuje webové stránky policie české republiky
+ * <a href="http://aplikace.policie.cz/patrani-vozidla/default.aspx">pátrání po odcizených vozidlech</a>.
+ *
+ * <pre>
+ *  List<OdcizeneVozidlo> vozidla = VozidlaPage.parse("8B67354");
+ * </pre>
  */
-public class VozidlaScraper {
+public class VozidlaPage {
 
     // Adresa webového formuláře
     private static final String URL = "http://aplikace.policie.cz/patrani-vozidla/default.aspx";
@@ -45,7 +50,7 @@ public class VozidlaScraper {
      * @return seznam nalezených vozidel
      * @throws IOException chyba parsování
      */
-    static List<OdcizeneVozidlo> parse(String query) throws IOException {
+    public static List<OdcizeneVozidlo> parse(String query) throws IOException {
 
         Document doc = PatraniSoup
                 .connect(URL)

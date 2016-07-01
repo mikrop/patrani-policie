@@ -1,6 +1,7 @@
 package cz.policie.patrani.model;
 
 import cz.policie.patrani.ScraperUtils;
+import cz.policie.patrani.VozidlaPage;
 import org.junit.Assert;
 
 import java.text.DateFormat;

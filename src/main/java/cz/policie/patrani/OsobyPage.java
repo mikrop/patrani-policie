@@ -8,15 +8,21 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.*;
 
 /**
- * Přepravka reprezentující jednu stránku hledaných osob. Seznam osob lze ze stránky získat voláním metody
- * {@link OsobyPage#getHledaneOsoby()} a další stránku pak metodou {@link OsobyPage#next()}.
+ * Parsuje webové stránky policie české republiky
+ * <a href="http://aplikace.policie.cz/patrani-osoby/Vyhledavani.aspx">pátrání po osobách</a>.
+ * Seznam osob lze získat voláním metody {@link OsobyPage#getHledaneOsoby()} a další stránku pak
+ * metodou {@link OsobyPage#next()}.
  *
  * <pre>
- *  OsobyPage page = OsobyScraper.parse(osoba);
+ *  OsobyPage page = new OsobyPage(osoba);
  *  Set<HledanaOsoba> hledaneOsoby = page.getHledaneOsoby();
  *  while (page.hasNext()) {
  *      OsobyPage next = page.next();
@@ -24,10 +30,12 @@ import java.util.*;
  *  }
  * </pre>
  */
-class OsobyPage implements Iterator<OsobyPage> {
+public class OsobyPage implements Iterator<OsobyPage> {
 
     // Adresa webového formuláře
     private static final String VYHLEDAVANI_URL = "http://aplikace.policie.cz/patrani-osoby/Vyhledavani.aspx";
+    // Adresa fotografie hledané osoby
+    private static final String IMAGE_URL = "http://aplikace.policie.cz/patrani-osoby/ViewImage.aspx";
 
     private Set<HledanaOsoba> hledaneOsoby = new LinkedHashSet<>();
     private String galleryUrl;
@@ -40,7 +48,7 @@ class OsobyPage implements Iterator<OsobyPage> {
      * @param osoba vstupní filtr
      * @throws IOException
      */
-    OsobyPage(Osoba osoba) throws IOException {
+    public OsobyPage(Osoba osoba) throws IOException {
 
         Connection.Response response = PatraniSoup
                 .connect(VYHLEDAVANI_URL)
@@ -123,9 +131,12 @@ class OsobyPage implements Iterator<OsobyPage> {
                 .get();
 
         Elements table = detail.select("table[id=ctl00_ctl00_Application_BasePlaceHolder_TablePatros]");
+
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put(HledanaOsoba.IMG_SRC_KEY, table.select("img").first().absUrl("src"));
+
         Element tr = table.select("tr").first();
         Iterator<Element> spans = tr.select("td span").iterator();
-        Map<String, String> map = new LinkedHashMap<>();
         while (spans.hasNext()) {
             Element next = spans.next();
             map.put(next.attr("id"), next.text());

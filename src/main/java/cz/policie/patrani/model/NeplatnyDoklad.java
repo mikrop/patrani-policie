@@ -14,7 +14,7 @@ public class NeplatnyDoklad {
     private String serie;
     private Date neplatnyOd;
 
-    public static NeplatnyDoklad parse(Map<String, String> map) throws ParseException {
+    public static NeplatnyDoklad parse(Map<String, String> map) {
         Assert.assertNotNull(map);
 
         NeplatnyDoklad doklad = new NeplatnyDoklad();

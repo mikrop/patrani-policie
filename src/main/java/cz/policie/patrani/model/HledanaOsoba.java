@@ -3,6 +3,9 @@ package cz.policie.patrani.model;
 import cz.policie.patrani.ScraperUtils;
 import org.junit.Assert;
 
+import java.io.*;
+import java.net.URI;
+import java.net.URL;
 import java.util.Date;
 import java.util.Map;
 
@@ -10,6 +13,9 @@ import java.util.Map;
  * Údaje o pohřešované a hledané osoby, po které Policie České republiky vyhlásila pátrání.
  */
 public class HledanaOsoba {
+
+    // Klíč pod kterým bude uložena URL adresa fotografii hledané osoby
+    public static final String IMG_SRC_KEY = "img_Src";
 
     private String prijmeniJmeno;
     private Pohlavi pohlavi = Pohlavi.MUZ;
@@ -22,6 +28,7 @@ public class HledanaOsoba {
     private String vek;
     private String popis;
     private String dalsiUdaje;
+    private InputStream image;
 
     public static HledanaOsoba parse(Map<String, String> map) {
         Assert.assertNotNull(map);
@@ -56,6 +63,14 @@ public class HledanaOsoba {
                 osoba.popis = value;
             } else if (entry.getKey().equals("ctl00_ctl00_Application_BasePlaceHolder_lbl_speechLang")) {
                 osoba.dalsiUdaje = value;
+            } else if (entry.getKey().equals(IMG_SRC_KEY)) {
+                if (value != null) {
+                    try {
+                        osoba.image = new URL(value).openStream();
+                    } catch (IOException e) {
+                        throw new IllegalStateException("Chyba parsování fotografie hledané osoby. " + e);
+                    }
+                }
             }
         }
         return osoba;
@@ -103,6 +118,10 @@ public class HledanaOsoba {
 
     public String getDalsiUdaje() {
         return dalsiUdaje;
+    }
+
+    public InputStream getImage() {
+        return image;
     }
 
 }

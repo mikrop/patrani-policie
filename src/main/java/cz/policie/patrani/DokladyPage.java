@@ -11,9 +11,14 @@ import java.text.ParseException;
 import java.util.*;
 
 /**
- * Parsuje webové stránky policie české republiky s <a href="http://aplikace.mvcr.cz/neplatne-doklady/default.aspx">neplatnými doklady</a>
+ * Parsuje webové stránky policie české republiky s
+ * <a href="http://aplikace.mvcr.cz/neplatne-doklady/default.aspx">neplatnými doklady</a>.
+ *
+ * <pre>
+ *  List<NeplatnyDoklad> doklady = DokladyPage.parse("108520090", TypDoklad.OBCANSKY_PRUKAZ);
+ * </pre>
  */
-public class DokladyScraper {
+public class DokladyPage {
 
     // Adresa webového formuláře
     private static final String URL = "http://aplikace.mvcr.cz/neplatne-doklady/default.aspx";
@@ -25,7 +30,7 @@ public class DokladyScraper {
      * @return {@link NeplatnyDoklad}
      * @throws IOException chyba parsování
      */
-    private static NeplatnyDoklad detail(Element tr) throws IOException, ParseException {
+    private static NeplatnyDoklad detail(Element tr) throws IOException {
 
         Elements tds = tr.select("td");
         Map<String, String> map = new LinkedHashMap<>();
@@ -45,7 +50,7 @@ public class DokladyScraper {
      * @return neplatný doklad
      * @throws IOException chyba parsování
      */
-    static List<NeplatnyDoklad> parse(String cislo, TypDoklad typDokladu) throws IOException, ParseException {
+    public static List<NeplatnyDoklad> parse(String cislo, TypDoklad typDokladu) throws IOException {
 
         Document doc = PatraniSoup
                 .connect(URL)

@@ -13,21 +13,19 @@ public class ScraperTest {
 
     // Vstupní parametry testovací
     private static final String TESTOVACI_SPZ = "8B67354";
-    private static final String TESTOVACI_JMENO_PRIJMENI = "PAVEL";
+    private static final String TESTOVACI_JMENO_PRIJMENI = "A ALI ESSAM MOHAMMED";
     private static final String TESTOVACI_IMEI = "12345678901234";
     private static final String TESTOVACI_DOKLAD_CISLO = "108520090";
 
-    @Test
-    public void testVozidlaScraper() throws Exception {
-        List<OdcizeneVozidlo> vozidla = VozidlaScraper.parse(TESTOVACI_SPZ);
+    public void testVozidla() throws Exception {
+        List<OdcizeneVozidlo> vozidla = VozidlaPage.parse(TESTOVACI_SPZ);
     }
 
-    @Test
-    public void testOsobyScraper() throws Exception {
+    public void testOsoby() throws Exception {
         Osoba osoba = new Osoba();
         osoba.setJmenoPrijmeni(TESTOVACI_JMENO_PRIJMENI);
 
-        OsobyPage page = OsobyScraper.parse(osoba);
+        OsobyPage page = new OsobyPage(osoba);
         Set<HledanaOsoba> hledaneOsoby = page.getHledaneOsoby();
         while (page.hasNext()) {
             OsobyPage next = page.next();
@@ -35,14 +33,12 @@ public class ScraperTest {
         }
     }
 
-//    @Test
-//    public void testMobilyScraper() throws Exception {
-//        OdcizenyTelefon telefon = MobilyScraper.parse(TESTOVACI_IMEI);
-//    }
-//
-//    @Test
-//    public void testDokladyScraper() throws Exception {
-//        List<NeplatnyDoklad> doklady = DokladyScraper.parse(TESTOVACI_DOKLAD_CISLO, TypDoklad.OBCANSKY_PRUKAZ);
-//    }
+    public void testMobily() throws Exception {
+        OdcizenyTelefon telefon = MobilyPage.parse(TESTOVACI_IMEI);
+    }
+
+    public void testDoklady() throws Exception {
+        List<NeplatnyDoklad> doklady = DokladyPage.parse(TESTOVACI_DOKLAD_CISLO, TypDoklad.OBCANSKY_PRUKAZ);
+    }
 
 }

@@ -7,9 +7,14 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 /**
- * Parsuje webové stránky policie české republiky o <a href="http://aplikace.policie.cz/patrani-mobily/default.aspx">odcizených mobilních zařízeních</a>
+ * Parsuje webové stránky policie české republiky o
+ * <a href="http://aplikace.policie.cz/patrani-mobily/default.aspx">odcizených mobilních zařízeních</a>
+ *
+ * <pre>
+ *  OdcizenyTelefon telefon = MobilyPage.parse("12345678901234");
+ * </pre>
  */
-public class MobilyScraper {
+public class MobilyPage {
 
     // Adresa webového formuláře
     private static final String URL = "http://aplikace.policie.cz/patrani-mobily/default.aspx";
@@ -21,7 +26,7 @@ public class MobilyScraper {
      * @return nalezený mobilní telefon
      * @throws IOException chyba parsování
      */
-    static OdcizenyTelefon parse(String imei) throws IOException {
+    public static OdcizenyTelefon parse(String imei) throws IOException {
 
         Document doc = PatraniSoup
                 .connect(URL)
