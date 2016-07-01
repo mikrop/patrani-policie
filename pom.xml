@@ -12,9 +12,10 @@
     </issueManagement>
 
     <scm>
-        <url>https://github.com/mikrop/patrani-policie-cz</url>
-        <connection>scm:git:git://github.com/mikrop/patrani-policie-cz.git</connection>
-        <developerConnection>scm:git:git@github.com/mikrop/patrani-policie-cz.git</developerConnection>
+        <url>git@github.com:mikrop/patrani-policie-cz.git</url>
+        <connection>scm:git:git@github.com:mikrop/patrani-policie-cz.git</connection>
+        <developerConnection>scm:git:git@github.com:mikrop/patrani-policie-cz.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
 
     <developers>
