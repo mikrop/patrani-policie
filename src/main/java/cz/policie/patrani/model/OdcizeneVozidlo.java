@@ -1,16 +1,20 @@
 package cz.policie.patrani.model;
 
 import cz.policie.patrani.ScraperUtils;
-import cz.policie.patrani.VozidlaPage;
 import org.junit.Assert;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * Údaje o odcizeném vozidle, po které Policie České republiky pátrá.
+ */
 public class OdcizeneVozidlo {
 
+    // Klíč pod kterým bude uložena URL adresa pro odskok na web policie české republiky
+    public static final String DETAIL_URL_KEY = "detail_url";
+
+    private String detailUrl;
     private String druh;
     private String vyrobce;
     private String typ;
@@ -31,7 +35,9 @@ public class OdcizeneVozidlo {
         OdcizeneVozidlo vozidlo = new OdcizeneVozidlo();
         for (Map.Entry<String, String> entry : map.entrySet()) {
             String value = entry.getValue().isEmpty() ? null : entry.getValue();
-            if (entry.getKey().equals("ctl00_Application_lblDruh")) {
+            if (entry.getKey().equals(DETAIL_URL_KEY)) {
+                vozidlo.detailUrl = value;
+            } else if (entry.getKey().equals("ctl00_Application_lblDruh")) {
                 vozidlo.druh = value;
             } else if (entry.getKey().equals("ctl00_Application_lblVyrobce")) {
                 vozidlo.vyrobce = value;
@@ -54,6 +60,10 @@ public class OdcizeneVozidlo {
             }
         }
         return vozidlo;
+    }
+
+    public String getDetailUrl() {
+        return detailUrl;
     }
 
     public String getDruh() {

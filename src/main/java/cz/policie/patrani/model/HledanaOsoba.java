@@ -3,8 +3,8 @@ package cz.policie.patrani.model;
 import cz.policie.patrani.ScraperUtils;
 import org.junit.Assert;
 
-import java.io.*;
-import java.net.URI;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
 import java.util.Map;
@@ -14,9 +14,11 @@ import java.util.Map;
  */
 public class HledanaOsoba {
 
-    // Klíč pod kterým bude uložena URL adresa fotografii hledané osoby
-    public static final String IMG_SRC_KEY = "img_Src";
+    // Klíče pod kterými budou uloženy hodnoty v {@link Map}ě
+    public static final String DETAIL_URL_KEY = "detail_url";
+    public static final String IMG_SRC_KEY = "img_src";
 
+    private String detailUrl;
     private String prijmeniJmeno;
     private Pohlavi pohlavi = Pohlavi.MUZ;
     private Date datumNarozeni;
@@ -36,7 +38,9 @@ public class HledanaOsoba {
         HledanaOsoba osoba = new HledanaOsoba();
         for (Map.Entry<String, String> entry : map.entrySet()) {
             String value = entry.getValue().isEmpty() ? null : entry.getValue();
-            if (entry.getKey().equals("ctl00_ctl00_Application_BasePlaceHolder_lbl_fullName")) {
+            if (entry.getKey().equals(DETAIL_URL_KEY)) {
+                osoba.detailUrl = value;
+            } else if (entry.getKey().equals("ctl00_ctl00_Application_BasePlaceHolder_lbl_fullName")) {
                 osoba.prijmeniJmeno = value;
             } else if (entry.getKey().equals("ctl00_ctl00_Application_BasePlaceHolder_lbl_pohlavi")) {
                 osoba.pohlavi = ScraperUtils.toPohlavi(value);
@@ -74,6 +78,10 @@ public class HledanaOsoba {
             }
         }
         return osoba;
+    }
+
+    public String getDetailUrl() {
+        return detailUrl;
     }
 
     public String getPrijmeniJmeno() {

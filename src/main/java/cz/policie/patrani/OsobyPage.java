@@ -9,10 +9,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.*;
 
 /**
@@ -133,6 +129,7 @@ public class OsobyPage implements Iterator<OsobyPage> {
         Elements table = detail.select("table[id=ctl00_ctl00_Application_BasePlaceHolder_TablePatros]");
 
         Map<String, String> map = new LinkedHashMap<>();
+        map.put(HledanaOsoba.DETAIL_URL_KEY, url);
         map.put(HledanaOsoba.IMG_SRC_KEY, table.select("img").first().absUrl("src"));
 
         Element tr = table.select("tr").first();

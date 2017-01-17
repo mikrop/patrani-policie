@@ -35,6 +35,7 @@ public class VozidlaPage {
         Elements table = detail.select("table[id=searchTableResults]");
         Iterator<Element> trs = table.select("tr").iterator();
         Map<String, String> map = new LinkedHashMap<>();
+        map.put(OdcizeneVozidlo.DETAIL_URL_KEY, url);
         while (trs.hasNext()) {
             Elements span = trs.next().select("td span");
             map.put(span.attr("id"), span.text());
