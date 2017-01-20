@@ -21,7 +21,9 @@ public enum TypDoklad {
     }
 
     /**
-     * Čitelný text typu dokladu.
+     * Popis typu dokladu.
+     *
+     * @return typ dokladu
      */
     public String getCaption() {
         return caption;

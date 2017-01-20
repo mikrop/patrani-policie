@@ -15,7 +15,9 @@ import java.util.*;
  * <a href="http://aplikace.mvcr.cz/neplatne-doklady/default.aspx">neplatnými doklady</a>.
  *
  * <pre>
+ * {@code
  *  List<NeplatnyDoklad> doklady = DokladyPage.parse("108520090", TypDoklad.OBCANSKY_PRUKAZ);
+ * }
  * </pre>
  */
 public class DokladyPage {

@@ -29,7 +29,7 @@ public abstract class ScraperUtils {
      * Transformuje hodnotu ANO/NE na {@link Boolean}.
      *
      * @param anotherString očekávaná hodnota ANO/NE
-     * @return {@link true} pokud bude předáno ANO, jinak {@link false}
+     * @return {@code true} pokud bude předáno ANO, jinak {@code false}
      */
     public static boolean toBoolean(String anotherString) {
         Assert.assertNotNull(anotherString);

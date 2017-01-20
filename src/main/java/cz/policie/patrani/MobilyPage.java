@@ -8,10 +8,12 @@ import java.io.IOException;
 
 /**
  * Parsuje webové stránky policie české republiky o
- * <a href="http://aplikace.policie.cz/patrani-mobily/default.aspx">odcizených mobilních zařízeních</a>
+ * <a href="http://aplikace.policie.cz/patrani-mobily/default.aspx">odcizených mobilních zařízeních</a>.
  *
  * <pre>
+ * {@code
  *  OdcizenyTelefon telefon = MobilyPage.parse("12345678901234");
+ * }
  * </pre>
  */
 public class MobilyPage {

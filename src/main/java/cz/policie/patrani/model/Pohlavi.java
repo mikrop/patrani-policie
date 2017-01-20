@@ -19,7 +19,9 @@ public enum Pohlavi {
     }
 
     /**
-     * Čitelný text pohlaví.
+     * Popis pohlaví.
+     *
+     * @return pohlaví
      */
     public String getCaption() {
         return caption;

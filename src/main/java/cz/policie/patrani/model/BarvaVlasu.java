@@ -28,7 +28,9 @@ public enum BarvaVlasu {
     }
 
     /**
-     * Čitelný text barvy vlasů.
+     * Popis barvy vlasů.
+     *
+     * @return barva vlasů
      */
     public String getCaption() {
         return caption;

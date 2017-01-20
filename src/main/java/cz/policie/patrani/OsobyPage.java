@@ -18,12 +18,14 @@ import java.util.*;
  * metodou {@link OsobyPage#next()}.
  *
  * <pre>
+ * {@code
  *  OsobyPage page = new OsobyPage(osoba);
  *  Set<HledanaOsoba> hledaneOsoby = page.getHledaneOsoby();
  *  while (page.hasNext()) {
  *      OsobyPage next = page.next();
  *      hledaneOsoby = next.getHledaneOsoby();
  *  }
+ * }
  * </pre>
  */
 public class OsobyPage implements Iterator<OsobyPage> {
@@ -42,7 +44,7 @@ public class OsobyPage implements Iterator<OsobyPage> {
      * {@link OsobyPage#getHledaneOsoby()}. Pokud bude nalezeno osob, je možné získat další a další volání metody {@link OsobyPage#next()}
      *
      * @param osoba vstupní filtr
-     * @throws IOException
+     * @throws IOException pokud při dohledávání osoby v aplikaci policie české republiky
      */
     public OsobyPage(Osoba osoba) throws IOException {
 
@@ -79,11 +81,11 @@ public class OsobyPage implements Iterator<OsobyPage> {
 
     /**
      * Vrací {@code true}, pokud parsovaná stránka obsahuje odkaz
-     *
-     * <br /><br /><pre>
-     *     div[id=PagingRepeater1BottomPager] a:contains(Další)
-     * </pre> na další stránku v výsledky hledání
-     *
+     * <pre>
+     * {@code
+     *  div[id=PagingRepeater1BottomPager] a:contains(Další)
+     * }
+     * </pre> na další stránku v výsledky hledání.
      * @return {@code false} pokud nebyl odkaz nalezen
      */
     @Override

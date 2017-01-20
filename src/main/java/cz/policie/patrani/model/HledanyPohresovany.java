@@ -20,7 +20,9 @@ public enum HledanyPohresovany {
     }
 
     /**
-     * Čitelný text hledaný nebo pohřešovaný.
+     * Popis hledaný nebo pohřešovaný.
+     *
+     * @return hledaný nebo pohřešovaný
      */
     public String getCaption() {
         return caption;

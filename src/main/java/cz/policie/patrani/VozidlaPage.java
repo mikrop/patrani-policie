@@ -14,7 +14,9 @@ import java.util.*;
  * <a href="http://aplikace.policie.cz/patrani-vozidla/default.aspx">pátrání po odcizených vozidlech</a>.
  *
  * <pre>
+ * {@code
  *  List<OdcizeneVozidlo> vozidla = VozidlaPage.parse("8B67354");
+ * }
  * </pre>
  */
 public class VozidlaPage {

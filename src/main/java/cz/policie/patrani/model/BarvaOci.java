@@ -22,7 +22,9 @@ public enum BarvaOci {
     }
 
     /**
-     * Čitelný text barvy očí.
+     * Popis barvy očí.
+     *
+     * @return barva očí
      */
     public String getCaption() {
         return caption;
