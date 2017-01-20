@@ -1,7 +1,7 @@
 # patrani-policie-cz
 
-[![Build Status](https://travis-ci.org/mikrop/patrani-policie-cz.svg?branch=master)](https://travis-ci.org/mikrop/patrani-policie-cz)
-[![Release](https://jitpack.io/v/mikrop/patrani-policie-cz.svg)](https://jitpack.io/#mikrop/patrani-policie-cz)
+[![Build Status](https://travis-ci.org/mikrop/patrani-policie.svg?branch=master)](https://travis-ci.org/mikrop/patrani-policie)
+[![Release](https://jitpack.io/v/mikrop/patrani-policie.svg)](https://jitpack.io/#mikrop/patrani-policie)
 
 Scraper webové aplikace pátrání policie české republiky. Umožňuje strojově spracovat formuláře pátrání
 
