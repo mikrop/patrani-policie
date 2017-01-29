@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.mikrop</groupId>
     <artifactId>patrani-policie</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>Scraper webové aplikace pátrání policie české republiky. Umožňující strojové zpracování pátrání</name>
 
     <issueManagement>
@@ -15,7 +15,7 @@
         <url>git@github.com:mikrop/patrani-policie.git</url>
         <connection>scm:git:git@github.com:mikrop/patrani-policie.git</connection>
         <developerConnection>scm:git:git@github.com:mikrop/patrani-policie.git</developerConnection>
-        <tag>patrani-policie-1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <developers>
