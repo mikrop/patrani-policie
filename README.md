@@ -1,4 +1,4 @@
-# patrani-policie-cz
+# patrani-policie
 
 [![Build Status](https://travis-ci.org/mikrop/patrani-policie.svg?branch=master)](https://travis-ci.org/mikrop/patrani-policie)
 [![Release](https://jitpack.io/v/mikrop/patrani-policie.svg)](https://jitpack.io/#mikrop/patrani-policie)
