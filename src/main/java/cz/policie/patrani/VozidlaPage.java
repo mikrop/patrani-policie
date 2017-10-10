@@ -68,11 +68,10 @@ public class VozidlaPage {
         }
 
         Elements table = doc.select("table[id=celacr]");
-        Iterator<Element> trs = table.select("tr[class=registracni-znacky]").iterator();
+        Elements trs = table.select("tr");
         List<OdcizeneVozidlo> result = new ArrayList<>();
-        while (trs.hasNext()) {
-            Element next = trs.next();
-            Element link = next.select("td a").first();
+        for (int i = 1; i < trs.size(); i++) {
+            Element link = trs.get(i).select("td a").first();
             OdcizeneVozidlo vozidlo = detail(link.attr("abs:href"));
 
             result.add(vozidlo);
