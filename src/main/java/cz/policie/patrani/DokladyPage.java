@@ -23,7 +23,7 @@ import java.util.*;
 public class DokladyPage {
 
     // Adresa webového formuláře
-    private static final String URL = "http://aplikace.mvcr.cz/neplatne-doklady/default.aspx";
+    private static final String URL = "https://aplikace.mvcr.cz/neplatne-doklady/default.aspx";
 
     /**
      * Z předaného řádku tabulky parsuje detail neplatného dokladu do struktury {@link NeplatnyDoklad}.

@@ -19,7 +19,7 @@ import java.io.IOException;
 public class MobilyPage {
 
     // Adresa webového formuláře
-    private static final String URL = "http://aplikace.policie.cz/patrani-mobily/default.aspx";
+    private static final String URL = "https://aplikace.policie.cz/patrani-mobily/default.aspx";
 
     /**
      * Dohledná předaný IMEI v databázi odcizených mobilních zařízení.

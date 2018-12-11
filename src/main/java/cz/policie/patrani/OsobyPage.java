@@ -31,9 +31,9 @@ import java.util.*;
 public class OsobyPage implements Iterator<OsobyPage> {
 
     // Adresa webového formuláře
-    private static final String VYHLEDAVANI_URL = "http://aplikace.policie.cz/patrani-osoby/Vyhledavani.aspx";
+    private static final String VYHLEDAVANI_URL = "https://aplikace.policie.cz/patrani-osoby/Vyhledavani.aspx";
     // Adresa fotografie hledané osoby
-    private static final String IMAGE_URL = "http://aplikace.policie.cz/patrani-osoby/ViewImage.aspx";
+    private static final String IMAGE_URL = "https://aplikace.policie.cz/patrani-osoby/ViewImage.aspx";
 
     private Set<HledanaOsoba> hledaneOsoby = new LinkedHashSet<>();
     private String galleryUrl;

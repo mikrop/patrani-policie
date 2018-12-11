@@ -22,7 +22,7 @@ import java.util.*;
 public class VozidlaPage {
 
     // Adresa webového formuláře
-    private static final String URL = "http://aplikace.policie.cz/patrani-vozidla/default.aspx";
+    private static final String URL = "https://aplikace.policie.cz/patrani-vozidla/default.aspx";
 
     /**
      * Z předané URL parsuje detail vozidla do struktury {@link OdcizeneVozidlo}.
