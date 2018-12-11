@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.mikrop</groupId>
     <artifactId>patrani-policie</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -106,7 +106,7 @@
         <url>git@github.com:mikrop/patrani-policie.git</url>
         <connection>scm:git:git@github.com:mikrop/patrani-policie.git</connection>
         <developerConnection>scm:git:git@github.com:mikrop/patrani-policie.git</developerConnection>
-        <tag>patrani-policie-1.0.6</tag>
+        <tag>patrani-policie-1.0.3</tag>
     </scm>
     <repositories>
         <repository>
